@@ -54,6 +54,20 @@ services:
     command: --server-id=1 --log-bin=mysql-bin --binlog-do-db=wordpress
     volumes:
       - ./sqlbase:/var/lib/mysql
+  
+  base_esclavo3:
+    image: mysql:5.7
+    container_name: base_esclavo3
+    ports:
+      - "3311:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: root1
+      MYSQL_PASSWORD: root1
+    command: --server-id=2 --relay-log=esclavo-relay-bin --log-bin=mysql-bin --binlog-do-db=wordpress
+    volumes:
+      - ./sqlbase_esclavo:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
